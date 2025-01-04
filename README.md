@@ -1,6 +1,12 @@
-# Idea - proje fikir paylaşma platformu
+# NALSAK - Online basit ve kolay alışveriş listesi sayfası
 
-**Idea**, kullanıcıların alışveriş listelerini yönetmelerine yardımcı olan bir web uygulamasıdır. Kullanıcılar, alınacak ürünleri ekleyebilir, tamamlanan ürünleri işaretleyebilir ve listelerini düzenleyebilirler. Proje, React.js ile oluşturulmuş bir istemci tarafı ve Node.js/Express.js ile oluşturulmuş bir sunucu tarafı içerir.
+**Nalsak**, kullanıcıların alışveriş listelerini yönetmelerine yardımcı olan bir web uygulamasıdır. Kullanıcılar, alınacak ürünleri ekleyebilir, tamamlanan ürünleri işaretleyebilir ve listelerini düzenleyebilirler. Proje, React.js ile oluşturulmuş bir istemci tarafı ve Node.js/Express.js ile oluşturulmuş bir sunucu tarafı içerir.
+
+<img width="500" alt="1" src="https://github.com/user-attachments/assets/f6628c6e-7238-41da-9ecf-9b9e88b89b2d" />
+<img width="500" alt="3" src="https://github.com/user-attachments/assets/b9220ddd-e571-4d24-8b60-cba51c8c1aa4" />
+<img width="300" alt="4" src="https://github.com/user-attachments/assets/d8107bb2-747b-444e-8b90-452c2f1d014a" />
+<img width="300" alt="5" src="https://github.com/user-attachments/assets/0984732f-6766-4e4d-8eae-6aeb2f065bf7" />
+<img width="300" alt="7" src="https://github.com/user-attachments/assets/2019ce86-8a4a-464c-bab3-474ec90b36c6" />
 
 ## Kullanılan Teknolojiler
 
