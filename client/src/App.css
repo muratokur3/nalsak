@@ -1,0 +1,47 @@
+body, html {
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  height: 100%;
+  overflow-x: hidden; /* Yatay kaydırmayı önlemek için */
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 7vh;
+  background-color: #fff;
+}
+
+.main-content {
+  padding-top: 7vh; /* Header yüksekliğine göre ayarlayın */
+  min-height: calc(100vh - 7vh); /* Header yüksekliğine göre ayarlayın */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  margin: 0 15px; /* Mobil cihazlarda kenarlardan boşluk bırakmak için */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+footer {
+  color: rgb(95, 90, 90);
+  text-align: center;
+  font-size: 0.8em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
