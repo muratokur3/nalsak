@@ -34,35 +34,37 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="text-center mt-5">Şifre Değiştir</h1>
-      <form onSubmit={handleChangePassword}>
-        <div className="mb-3">
-          <label htmlFor="newPassword" className="form-label">Yeni Şifre</label>
-          <input
-            type="password"
-            className="form-control"
-            id="newPassword"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">Yeni Şifre (Tekrar)</label>
-          <input
-            type="password"
-            className="form-control"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <div className="alert alert-danger">{error}</div>}
-        {success && <div className="alert alert-success">{success}</div>}
-        <button type="submit" className="btn btn-primary">Şifre Değiştir</button>
-      </form>
+    <div className="container d-flex flex-column align-items-center">
+      <div className="form-container">
+        <h1 className="text-center mt-3 mb-3">Şifre Değiştir</h1>
+        <form onSubmit={handleChangePassword}>
+          <div className="mb-4">
+            <input
+              type="password"
+              className="form-control"
+              id="newPassword"
+              placeholder="Yeni Şifre"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              placeholder="Yeni Şifre (Tekrar)"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <div className="alert alert-danger">{error}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
+          <button type="submit" className="btn btn-primary w-100">Şifreyi Değiştir</button>
+        </form>
+      </div>
     </div>
   );
 };
