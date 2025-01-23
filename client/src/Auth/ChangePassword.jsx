@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios  from '../axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 const ChangePassword = () => {
@@ -19,9 +19,9 @@ const ChangePassword = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/change-password', {
-        newPassword,
-      }, { withCredentials: true });
+      const response = await axios.post('auth/change-password', {
+        newPassword
+      });
       setSuccess(response.data.message);
       setError('');
       setNewPassword('');

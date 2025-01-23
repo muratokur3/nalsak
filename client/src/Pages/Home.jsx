@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import axios from 'axios';
+import axios  from '../axiosConfig';
+
 
 function Home() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Home() {
 
     const fetchItems = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/items', { withCredentials: true });
+        const response = await axios.get('items');
         const fetchedItems = response.data;
         setItems(fetchedItems.filter(item => !item.completed));
         setCompletedItems(fetchedItems.filter(item => item.completed));
@@ -36,7 +37,7 @@ function Home() {
   const handleAddItem = async () => {
     if (inputValue.trim() !== '') {
       try {
-        const response = await axios.post('http://localhost:8080/api/items', { text: inputValue }, { withCredentials: true });
+        const response = await axios.post('items', { text: inputValue });
         setItems([...items, response.data]);
         setInputValue('');
         inputRef.current.focus(); // Input alanına odaklan
@@ -49,7 +50,7 @@ function Home() {
   const handleCompleteItem = async (id) => {
     const item = items.find((item) => item._id === id);
     try {
-      const response = await axios.put(`http://localhost:8080/api/items/${id}`, { ...item, completed: true }, { withCredentials: true });
+      const response = await axios.put(`items/${id}`, { ...item, completed: true });
       setItems(items.filter((item) => item._id !== id));
       setCompletedItems([...completedItems, response.data]);
     } catch (err) {
@@ -60,7 +61,7 @@ function Home() {
   const handleReAddItem = async (id) => {
     const item = completedItems.find((item) => item._id === id);
     try {
-      const response = await axios.put(`http://localhost:8080/api/items/${id}`, { ...item, completed: false }, { withCredentials: true });
+      const response = await axios.put(`items/${id}`, { ...item, completed: false });
       setCompletedItems(completedItems.filter((item) => item._id !== id));
       setItems([...items, response.data]);
     } catch (err) {
@@ -70,7 +71,7 @@ function Home() {
 
   const handleDeleteItem = async (id, listSetter, list) => {
     try {
-      await axios.delete(`http://localhost:8080/api/items/${id}`, { withCredentials: true });
+      await axios.delete(`items/${id}`);
       listSetter(list.filter((item) => item._id !== id));
     } catch (err) {
       console.error('Error deleting item:', err);

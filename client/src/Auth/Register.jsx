@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios  from '../axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -13,10 +13,10 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', {
+      const response = await axios.post('auth/register', {
         username,
         password,
-      }, { withCredentials: true });
+      });
       setSuccess(`Kayıt başarılı! Hoş geldiniz, ${response.data.username}`);
       setError('');
       Cookies.set('username', response.data.username, { expires: 7 }); // Kullanıcı adını çerezlere ekleyin

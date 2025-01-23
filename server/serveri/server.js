@@ -15,9 +15,9 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors({
-  origin: [ "https://nalsak.biz.tr", "https://api.nalsak.biz.tr/"],
+  origin: [ "https://nalsak.biz.tr", "https://devapi.nalsak.biz.tr/"],
   // origin: ["http://localhost:5173"],
-  credentials: true,  
+  credentials: true,
 }));
 app.use(cookieParser());
 

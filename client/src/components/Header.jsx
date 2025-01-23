@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import axios from 'axios';
+import axios  from '../axiosConfig';
 
 const Header = () => {
   const [username, setUsername] = useState("");
@@ -26,10 +26,10 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:8080/api/auth/logout', {}, { withCredentials: true });
+      await axios.post('auth/logout');
       Cookies.remove('token');
       Cookies.remove('username');
-      window.location.href = '/login';
+      window.location.href = '/';
     } catch (err) {
       console.error('Error logging out:', err);
     }
