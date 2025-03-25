@@ -1,16 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import axios  from '../axiosConfig';
-
+import axios from '../axiosConfig';
 
 function Home() {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState('');
-  const [items, setItems] = useState([]);
-  const [completedItems, setCompletedItems] = useState([]);
+  const [items, setItems] = useState([]); // Tamamlanmayanlar
+  const [completedItems, setCompletedItems] = useState([]); // Tamamlananlar
   const inputRef = useRef(null);
-  const buttonRef = useRef(null);
 
   useEffect(() => {
     const username = Cookies.get('username');
@@ -24,8 +22,8 @@ function Home() {
       try {
         const response = await axios.get('items');
         const fetchedItems = response.data;
-        setItems(fetchedItems.filter(item => !item.completed));
-        setCompletedItems(fetchedItems.filter(item => item.completed));
+        setItems(fetchedItems.filter((item) => !item.completed)); // Tamamlanmayanlar
+        setCompletedItems(fetchedItems.filter((item) => item.completed)); // Tamamlananlar
       } catch (err) {
         console.error('Error fetching items:', err);
       }
@@ -38,7 +36,7 @@ function Home() {
     if (inputValue.trim() !== '') {
       try {
         const response = await axios.post('items', { text: inputValue });
-        setItems([...items, response.data]);
+        setItems([response.data, ...items]); // Yeni elemanı başa ekle
         setInputValue('');
         inputRef.current.focus(); // Input alanına odaklan
       } catch (err) {
@@ -51,8 +49,8 @@ function Home() {
     const item = items.find((item) => item._id === id);
     try {
       const response = await axios.put(`items/${id}`, { ...item, completed: true });
-      setItems(items.filter((item) => item._id !== id));
-      setCompletedItems([...completedItems, response.data]);
+      setItems(items.filter((item) => item._id !== id)); // Tamamlanmayanlardan çıkar
+      setCompletedItems([response.data, ...completedItems]); // Tamamlananlara ekle
     } catch (err) {
       console.error('Error completing item:', err);
     }
@@ -62,8 +60,8 @@ function Home() {
     const item = completedItems.find((item) => item._id === id);
     try {
       const response = await axios.put(`items/${id}`, { ...item, completed: false });
-      setCompletedItems(completedItems.filter((item) => item._id !== id));
-      setItems([...items, response.data]);
+      setCompletedItems(completedItems.filter((item) => item._id !== id)); // Tamamlananlardan çıkar
+      setItems([response.data, ...items]); // Tamamlanmayanlara ekle
     } catch (err) {
       console.error('Error re-adding item:', err);
     }
@@ -82,10 +80,6 @@ function Home() {
     if (e.key === 'Enter') {
       handleAddItem();
     }
-    if (e.key === 'Tab' && e.shiftKey) {
-      e.preventDefault();
-      inputRef.current.focus();
-    }
   };
 
   return (
@@ -100,42 +94,58 @@ function Home() {
           onKeyDown={handleKeyDown}
           ref={inputRef}
         />
-        <button
-          className="btn btn-primary btn-lg"
-          onClick={handleAddItem}
-          ref={buttonRef}
-          tabIndex="0"
-        >
-          Ekle
+        <button className="btn btn-primary btn-lg" onClick={handleAddItem}>
+          <i className="bi bi-plus-lg"></i>
         </button>
       </div>
-      {items.length > 0 && <h2>Alınacaklar</h2>}
+
       <ul className="list-group mb-3 w-100" style={{ maxWidth: '600px' }}>
         {items.map((item) => (
-          <li key={item._id} className="list-group-item d-flex justify-content-between align-items-center">
+          <li
+            key={item._id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
             <div className="d-flex align-items-center">
-              <button className="btn btn-success me-3 btn-sm" onClick={() => handleCompleteItem(item._id)}>
-                Alındı
+              <button
+                className="btn btn-light me-3 btn-sm"
+                onClick={() => handleCompleteItem(item._id)}
+              >
+                <i className="bi bi-circle" style={{ fontSize: '1.5rem' }}></i> {/* Boş yuvarlak */}
               </button>
               <span>{item.text}</span>
             </div>
-            <button className="btn btn-link text-danger" onClick={() => handleDeleteItem(item._id, setItems, items)}>
+            <button
+              className="btn btn-link text-danger"
+              onClick={() => handleDeleteItem(item._id, setItems, items)}
+            >
               <i className="bi bi-trash"></i>
             </button>
           </li>
         ))}
       </ul>
-      {completedItems.length > 0 && <h2>Alınanlar</h2>}
+
       <ul className="list-group mb-3 w-100" style={{ maxWidth: '600px' }}>
         {completedItems.map((item) => (
-          <li key={item._id} className="list-group-item d-flex justify-content-between align-items-center">
+          <li
+            key={item._id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+            style={{ textDecoration: 'line-through', opacity: 0.6 }}
+          >
             <div className="d-flex align-items-center">
-              <button className="btn btn-warning me-3  btn-sm" onClick={() => handleReAddItem(item._id)}>
-               Ekle
+              <button
+                className="btn btn-warning me-3 btn-sm"
+                onClick={() => handleReAddItem(item._id)}
+              >
+                <i className="bi bi-plus-lg"></i> {/* Tekrar ekleme */}
               </button>
               <span>{item.text}</span>
             </div>
-            <button className="btn btn-link text-danger" onClick={() => handleDeleteItem(item._id, setCompletedItems, completedItems)}>
+            <button
+              className="btn btn-link text-danger"
+              onClick={() =>
+                handleDeleteItem(item._id, setCompletedItems, completedItems)
+              }
+            >
               <i className="bi bi-trash"></i>
             </button>
           </li>
